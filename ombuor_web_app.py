@@ -42,7 +42,7 @@ st.markdown("""
 # SECURITY CREDENTIAL CONFIGURATION 
 DEVELOPER_USERNAME = "ombuor"
 DEVELOPER_PASSWORD = "money100"
-DERIV_API_TOKEN = "pat_cb77c41273d06fc75aa4690791765c3bfb88b42baba27e6fc6ab2c1bde290a29":
+DERIV_API_TOKEN = "pat_cb77c41273d06fc75aa4690791765c3bfb88b42baba27e6fc6ab2c1bde290a29"
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 if "price" not in st.session_state:
@@ -145,8 +145,5 @@ else:
                         })
                         st.bar_chart(data=df, x="Digit Parameter", y="Match Ratio (%)", use_container_width=True)
 
-    # Boot the parallel processing data framework loop
-    if DERIV_API_TOKEN == "pat_cb77c41273d06fc75aa4690791765c3bfb88b42baba27e6fc6ab2c1bde290a29":
-        st.warning("⚠️ Market data stream paused. Please edit the python file and add your Deriv API Token to unlock the pipeline network layout.")
-    else:
+        # Boot the parallel processing data framework loop
         asyncio.run(fetch_live_market_data())
