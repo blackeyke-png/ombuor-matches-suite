@@ -7,9 +7,10 @@ import json
 import asyncio
 import websockets
 
+# Configure responsive page view parameters
 st.set_page_config(page_title="MATCHES TOOL PRO", page_icon="🎯", layout="wide")
 
-# Embedded Premium Web CSS Theme Templates
+# Embedded Premium Web CSS Theme Templates to match reference style
 st.markdown("""
     <style>
     .stApp {
@@ -43,6 +44,7 @@ st.markdown("""
 DEVELOPER_USERNAME = "ombuor"
 DEVELOPER_PASSWORD = "money100"
 DERIV_API_TOKEN = "pat_cb77c41273d06fc75aa4690791765c3bfb88b42baba27e6fc6ab2c1bde290a29"
+
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 if "price" not in st.session_state:
@@ -73,7 +75,7 @@ if not st.session_state.authenticated:
             else:
                 st.error("Invalid Signature Key")
 
-# --- LAYER 2: LIVE LIVE LIVE DATA PIPELINE ---
+# --- LAYER 2: LIVE MARKET DATA PIPELINE ---
 else:
     st.markdown("<p style='float: right;'><span class='live-badge'>● LIVE MARKET DATA PIPELINE ONLINE</span></p>", unsafe_allow_html=True)
     st.title("🎯 OMBUOR MATCHES SUITE v3.0")
@@ -89,20 +91,16 @@ else:
     with col_chart:
         heatmap_box = st.empty()
 
-    # Async Live Pipeline connection handler
     async def fetch_live_market_data():
-        url = "wss://://derivws.com" # Open developer public endpoint node
+        url = "wss://://derivws.com"
         async with websockets.connect(url) as websocket:
-            # 1. Authorize connection using API Token
             auth_req = {"authorize": DERIV_API_TOKEN}
             await websocket.send(json.dumps(auth_req))
             await websocket.recv()
             
-            # 2. Subscribe to Volatility 100 (1-Second Interval) synthetic market indices
             sub_req = {"ticks": "R_100"}
             await websocket.send(json.dumps(sub_req))
             
-            # 3. Stream data indefinitely
             while st.session_state.authenticated:
                 response = await websocket.recv()
                 data = json.loads(response)
@@ -111,7 +109,6 @@ else:
                     raw_price = data["tick"]["quote"]
                     st.session_state.price = raw_price
                     
-                    # Core matching logic mathematics engine execution 
                     str_price = f"{raw_price:.2f}"
                     last_digit = int(str_price[-1])
                     st.session_state.digit_history.append(last_digit)
@@ -145,5 +142,5 @@ else:
                         })
                         st.bar_chart(data=df, x="Digit Parameter", y="Match Ratio (%)", use_container_width=True)
 
-        # Boot the parallel processing data framework loop
-        asyncio.run(fetch_live_market_data())
+    # Boot the parallel processing data framework loop cleanly
+    asyncio.run(fetch_live_market_data())
