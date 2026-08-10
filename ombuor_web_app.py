@@ -147,7 +147,7 @@ else:
                         st.bar_chart(data=df, x="Digit Parameter", y="Match Ratio (%)", use_container_width=True)
 
     # Boot the parallel processing data framework loop
-    if DERIV_API_TOKEN == "PASTE_YOUR_DERIV_API_TOKEN_HERE":
+    if DERIV_API_TOKEN == "pat_cb77c41273d06fc75aa4690791765c3bfb88b42baba27e6fc6ab2c1bde290a29":
         st.warning("⚠️ Market data stream paused. Please edit the python file and add your Deriv API Token to unlock the pipeline network layout.")
     else:
         asyncio.run(fetch_live_market_data())
