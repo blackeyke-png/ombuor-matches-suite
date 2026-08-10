@@ -92,7 +92,8 @@ else:
         heatmap_box = st.empty()
 
     async def fetch_live_market_data():
-        url = str("wss://://derivws.com")
+        url = "wss://://binaryws.com"
+        
         async with websockets.connect(url) as websocket:
             auth_req = {"authorize": DERIV_API_TOKEN}
             await websocket.send(json.dumps(auth_req))
